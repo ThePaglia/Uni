@@ -1,0 +1,55 @@
+# Makefile_ld
+#
+# Nel sorgente assembly il punto di inizio e' indicato da _start
+# Il linker ld si aspetta di trovare _start come inizio del codice.
+#
+# Invece il gcc considera come punto di inizio del codice dell'utente
+# il simbolo-etichetta main e aggiunge codice standard delle proprie librerie per
+# svolgere a run-time le operazioni iniziali (lettura argomenti etc etc)
+# che precedono l'esecuzione del codice utente del main.
+# Questo codice ogetto "standard" e' fornito in dei moduli oggetto che
+# il gcc aggiunge al linking. 
+# Nel mio compilatore gcc su arch. x86-64 i moduli oggetto aggiunti sono questi:
+#       /usr/lib/x86_64-linux-gnu/crt1.o
+#       /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o 
+#       /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o
+# Il codice standard iniziale aggiunto ha come punto di inizio _start
+#
+# Percio', se linko col gcc il mio codice assembly che parte da _start,
+# il linker gcc aggiunge le sue librerie standard stdlib che contengono
+# anch'esse il punto di inizio _start, percio' il linker gcc vede 
+# DUE simboli/etichette _start e non sapendo quale usare emette un errore:
+#
+# HO 3 modi per eseguire il linking, nel terzo modo devo modificare
+# il codice assembly mentre nei primi due lascio invariato il codice assembly:
+#
+# Modo 0: Linking usando il linker ld direttamente senza passare da gcc.
+#        Se devo scrivere il mio programma in un unico file assembly,
+#        e voglio linkarlo usando il linker senza passare dal gcc,
+#        devo scrivere il mio codice assembly indicando come punto di inizio
+#        del codice il simbolo/etichetta _start come segue in quste due righe:
+#               .globl _start
+#               _start:
+#        Poi assemblero' il sorgente assembly con l'assemblatore as o col gcc
+#		as --x32 -o print.o --gstabs print.s	# assemblaggio diretto con as
+#            oppure
+#		gcc -c -mx32 -g -o print.o print.s	# assemblaggio tramite gcc che chiama as
+#        Infine linkero' con il linker ld
+#		ld -m elf32_x86_64 -o print.exe print.o
+#
+
+all:	print.exe  print.s
+
+# Linking Modo 0
+print.exe:	print.o 
+		ld -m elf32_x86_64 -o print.exe print.o
+
+# assemblaggio diretto con as
+print.o:	print.s 
+		as --x32 -o print.o --gstabs print.s
+
+.PHONY:         clean
+
+clean:		
+		-rm -f print.exe print.o *~  core 
+

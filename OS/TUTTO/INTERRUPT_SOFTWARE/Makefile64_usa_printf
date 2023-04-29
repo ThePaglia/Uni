@@ -1,0 +1,50 @@
+# Makefile64_usa_printf
+# Compilo con codice nativo a 64 bit per z86-64
+# uso le librerie standard libc per usare la printf
+#
+# Anche se non li specifico io, quando il gcc esegue il linking
+# utilizza dei moduli oggetto "di libreria" con del codice
+# che servira' ad eseguire la parte iniziale di esecuzione del programma,
+# ad esempio prendere gli argomenti a riga di comando e metterli nello stack
+# a disposizione del main. 
+# Solo al termine dell'esecuzione di queste parti iniziali di codice,
+# il controllo viene passato al main del mio programma C.
+# Alcuni altri moduli oggetto standard servono per la fine del programma.
+#
+# Questi moduli oggetto "standard" nel mio compilatore sono questi:
+#	/usr/lib/x86_64-linux-gnu/crt1.o
+#	/usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o 
+#	/usr/lib/gcc/x86_64-linux-gnu/5/crtend.o
+#
+# Se lancio il gcc con l'opzione -v o con l'opzione -###
+# vedo i dettagli di quali comandi lancia il gcc
+#
+# Nell'esempio qui sotto, quando lancio il comando di linking con il gcc
+# il gcc lancia il linker ld e gli passa i seguenti argomenti:
+#
+# 	/usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/cc7yRp5X.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o print64_usa_main.exe /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. print64_usa_main.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o
+
+# se guardate bene, vedete li' in mezzo proprio i moduli standard che vi ho citato.
+
+# i flag -g del gcc e --gstab di as servono a introdurre 
+# informazioni di debugging nel codice e quindi non sono
+# essenziali, potrebbero essere tolti.
+
+
+all:	print64_usa_printf.exe
+
+print64_usa_printf.exe:	print64_usa_printf.o 
+# NO TENTATIVO DI LINKARE ESPLICITAMENTE LE LIBRERIE ma manca la entry _start
+# NO	gcc -nostdlib -m64 -g -o print64_usa_printf.exe -dinamic-linker /lib64/ld-linux-x86-64.so.2  print64_usa_printf.o -lc 
+#	gcc -m64 -v -g -o print64_usa_printf.exe print64_usa_printf.o
+	gcc -m64 -g -o print64_usa_printf.exe print64_usa_printf.o
+
+print64_usa_printf.o:		print64_usa_printf.s 
+# OK	as --64 -o print64_usa_printf.o --gstabs print64_usa_printf.s
+	gcc -m64 -c -g -o print64_usa_printf.o print64_usa_printf.s
+
+.PHONY:         clean
+
+clean:		
+	rm -f print64_usa_printf.exe print64_usa_printf.o *~  core 
+

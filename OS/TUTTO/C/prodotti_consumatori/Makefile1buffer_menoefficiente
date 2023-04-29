@@ -1,0 +1,21 @@
+CFLAGS=-ansi -Wpedantic -Wall -D_REENTRANT -D_THREAD_SAFE -D_POSIX_C_SOURCE=200112L
+
+LIBRARIES=-lpthread
+
+all: 	NProdMCons1buffer_menoefficiente.exe
+
+NProdMCons1buffer_menoefficiente.exe: NProdMCons1buffer_menoefficiente.o DBGpthread.o
+	gcc -o NProdMCons1buffer_menoefficiente.exe NProdMCons1buffer_menoefficiente.o DBGpthread.o ${LIBRARIES}
+
+NProdMCons1buffer_menoefficiente.o: NProdMCons1buffer_menoefficiente.c DBGpthread.h printerror.h
+	gcc -c NProdMCons1buffer_menoefficiente.c
+
+DBGpthread.o: DBGpthread.c printerror.h
+	gcc -c DBGpthread.c
+
+.PHONY:	clean
+
+clean:
+	-rm -f NProdMCons1buffer_menoefficiente.o DBGpthread.o NProdMCons1buffer_menoefficiente.exe
+
+

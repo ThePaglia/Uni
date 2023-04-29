@@ -1,0 +1,58 @@
+# Makefile_usa_main
+#
+# Anche se non li specifico io, quando il gcc esegue il linking
+# utilizza dei moduli oggetto "di libreria" con del codice
+# che servira' ad eseguire la parte iniziale di esecuzione del programma,
+# ad esempio prendere gli argomenti a riga di comando e metterli nello stack
+# a disposizione del main. 
+# Solo al termine dell'esecuzione di queste parti iniziali di codice,
+# il controllo viene passato al main del mio programma C.
+# Alcuni altri moduli oggetto standard servono per la fine del programma.
+#
+# Questi moduli oggetto "standard" nel mio compilatore gcc, quando genera codice
+# a 64 bit per l-architettura nativa x86-64 su cui esegue, sono questi:
+#	/usr/lib/x86_64-linux-gnu/crt1.o
+#	/usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o 
+#	/usr/lib/gcc/x86_64-linux-gnu/5/crtend.o
+#
+# Invece, se faccio linkare codice a 32 per lavorare ancora su arch. x86-64,
+# il mio compilatore gcc aggiunge i seguenti imoduli oggetto:
+#	/usr/libx32/crt1.o
+#	/usr/libx32/crti.o
+#	/usr/lib/gcc/x86_64-linux-gnu/5/x32/crtbegin.o
+#	/usr/lib/gcc/x86_64-linux-gnu/5/x32/crtend.o
+#	/usr/libx32/crtn.o
+#
+# Se lancio il gcc con l'opzione -v o con l'opzione -###
+# vedo i dettagli di quali comandi lancia il gcc
+#
+# Nell'esempio qui sotto, quando lancio il comando di linking con il gcc ordinandogli
+# di linkare dei moduli compilati per lavorare a 32 su architettura x86-64 (flag -mx32)
+# il gcc lancia il linker ld e gli passa i seguenti argomenti:
+#
+# 	/usr/bin/ld -mx32 -g -o print_usa_main.exe -mtune=generic -march=x86-64  /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/cc7q9kG7.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf32_x86_64 --hash-style=gnu --as-needed -dynamic-linker /libx32/ld-linux-x32.so.2 -z relro -o print_usa_main.exe /usr/lib/gcc/x86_64-linux-gnu/5/../../../../libx32/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../../libx32/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/x32/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5/x32 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../libx32 -L/lib/../libx32 -L/usr/lib/../libx32 -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. print_usa_main.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/5/x32/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../../libx32/crtn.o
+
+# se guardate, vedete li' in mezzo proprio i moduli standard a 32 bit che vi ho citato.
+
+# Nel seguito, i flag -g del gcc e --gstab di as servono a introdurre 
+# informazioni di debugging nel codice e quindi non sono
+# essenziali, potrebbero essere tolti.
+
+all:	print_usa_main.exe  print_usa_main.s
+
+print_usa_main.exe:	print_usa_main.o 
+# 	gcc -mx32 -v -g -o print_usa_main.exe print_usa_main.o
+	gcc -mx32 -g -o print_usa_main.exe print_usa_main.o
+
+print_usa_main.o:		print_usa_main.s 
+# OK	as --x32 -o print_usa_main.o --gstabs print_usa_main.s
+# Per linkare e creare eseguibili a 32 bit con istruzioni x86-64 con gcc 
+#     ho dovuto installare le librerie gcc-multilib che forniscono anche 
+#     i moduli aggiuntivi crti.o a 32bit con istruzioni x86-64
+	gcc -c -mx32 -g -o print_usa_main.o print_usa_main.s
+
+.PHONY:         clean
+
+clean:		
+	rm -f print_usa_main.exe print_usa_main.o *~  core 
+

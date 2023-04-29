@@ -1,0 +1,92 @@
+# Makefile_gcc-nostdlib
+#
+# Nel sorgente assembly il punto di inizio e' indicato da _start
+# Il linker ld si aspetta di trovare _start come inizio del codice.
+#
+# Invece il gcc considera come punto di inizio del codice dell'utente
+# il simbolo-etichetta main e aggiunge codice standard delle proprie librerie per
+# svolgere a run-time le operazioni iniziali (lettura argomenti etc etc)
+# che precedono l'esecuzione del codice utente del main.
+# Questo codice ogetto "standard" e' fornito in dei moduli oggetto che
+# il gcc aggiunge al linking. 
+# Nel mio compilatore gcc su arch. x86-64 i moduli oggetto aggiunti sono questi:
+#       /usr/lib/x86_64-linux-gnu/crt1.o
+#       /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o 
+#       /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o
+# Il codice standard iniziale aggiunto ha come punto di inizio _start
+#
+# Percio', se linko col gcc il mio codice assembly che parte da _start,
+# il linker gcc aggiunge le sue librerie standard stdlib che contengono
+# anch'esse il punto di inizio _start, percio' il linker gcc vede 
+# DUE simboli/etichette _start e non sapendo quale usare emette un errore:
+#
+# HO 3 modi per eseguire il linking, nel terzo modo devo modificare
+# il codice assembly mentre nei primi due lascio invariato il codice assembly:
+# Modo 0: Linking usando il linker ld direttamente senza passare da gcc.
+#        Se devo scrivere il mio programma in un unico file assembly,
+#        e voglio linkarlo usando il linker senza passare dal gcc,
+#        devo scrivere il mio codice assembly indicando come punto di inizio
+#        del codice il simbolo/etichetta _start come segue in quste due righe:
+#               .globl _start
+#               _start:
+#        Poi assemblero' il sorgente assembly con l'assemblatore as o col gcc
+#		as --x32 -o print.o --gstabs print.s	# assemblaggio diretto con as
+#            oppure
+#		gcc -c --mx32 -g -o print.o print.s	# assemblaggio tramite gcc che chiama as
+#        Infine linkero' con il linker ld
+#		ld -m elf32_x86_64 -o print.exe print.o
+#
+# Invece, per scrivere il mio eseguibile in assembly e linkare  con il gcc 
+# senza avere problemi di duplicazione del simbolo main
+# posso usare due modi diversi.
+# Modo 1: ordino al gcc di fare il linking SENZA USARE LE SUE LIBRERIE STANDARD
+#         che tanto non mi servono perche' io uso solo istruzioni assembly.
+#         Per fare cio' AGGIUNGO AL COMANDO DI LINKING ORDINATO AL gcc
+#         flag -nostdlib che ordina di non usare le librerie standard del C.
+#               gcc -nostdlib -mx32 -o print_gcc-nostdlib.exe print.o
+# Modo 2: modifico il codice assembly, battezzando main il punto di inizio
+#         del mio codice assembly.
+#         In pratica, al posto delle due righe di codice seguenti
+#               .globl _start
+#               _start:
+#         devo sostituire le due righe seguenti>
+#               .globl main
+#               main:
+#         Poi assemblero' il sorgente assembly con l'assemblatore as o col gcc
+#		as --x32 -o print_usa_main.o --gstabs print_usa_main.s	# assemblaggio diretto con as
+#            oppure
+#		gcc -c -mx32 -g -o print_usa_main.o print_usa_main.s	# assemblaggio tramite gcc che chiama as
+#         A questo punto posso usare il gcc per linkare normalmente
+#         senza dover chiedere di escludere le librerie di default.
+#		gcc -mx32 -o print_usa_main.exe print_usa_main.o
+#         Infatti, in questo modo, il gcc linker aggiunge il suo codice macchina
+#         che parte da _start e trova nel modulo oggetto originato in assembly
+#         il simbolo main che indica da dove far partire il codice utente.
+#         In questo modo, nel mio eseguibile mi ritrovo anche le librerie standard
+#         e quindi, volendo, potrei richiamare da assembly anche le funzioni C
+#         presenti nelle librerie standard, purche' sia io da assembly a preparare
+#         correttamente lo stack per la chiamata a funzione C, come farebbe 
+#         il compilatore, e analogamente a recuperare il risultato e ripulire lo stack.
+
+
+all:	print_gcc-nostdlib.exe
+
+print_gcc-nostdlib.exe:	print_gcc-nostdlib.o 
+# OK Linking Modo 0
+#		ld -m elf32_x86_64 -o print.exe print.o
+# OK Linking Modo 1
+		gcc -nostdlib -mx32 -o print_gcc-nostdlib.exe print_gcc-nostdlib.o
+# per vedere che NON aggiunge moduli in linking, posso mettere l'opzione -v
+#		gcc -v -nostdlib -mx32 -o print_gcc-nostdlib.exe print_gcc-nostdlib.o
+
+print_gcc-nostdlib.o:	print.s 
+# OK assemblaggio diretto con as
+#		as --x32 -o print_gcc-nostdlib.o --gstabs print_gcc-nostdlib.s
+# OK assemblaggio per tramite del gcc che chiama as
+		gcc -c -mx32 -g -o print_gcc-nostdlib.o print.s
+
+.PHONY:         clean
+
+clean:		
+		rm -f print_gcc-nostdlib.exe print_gcc-nostdlib.o *~  core 
+

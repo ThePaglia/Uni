@@ -1,0 +1,41 @@
+package pr2016.a05.sol2;
+
+import javax.swing.*;
+import java.util.*;
+import java.util.stream.*;
+
+public class GUI {
+    
+    private List<JButton> buttons;
+    private Model model;
+    
+    public GUI(int size){
+        model = new ModelImpl(size);
+        buttons = IntStream.range(0,size).mapToObj(i->new JButton(" ")).collect(Collectors.toList());
+        JButton jbMove = new JButton("Move");
+        jbMove.addActionListener(e -> { 
+            model.move(); 
+            viewUpdate(); 
+        });
+        JCheckBox jCheck = new JCheckBox("Goright",true);
+        jCheck.addActionListener(e -> { model.direction(jCheck.isSelected()); });
+        JPanel jp = new JPanel();
+        buttons.forEach(jp::add);
+        jp.add(jbMove);
+        jp.add(jCheck);
+        JFrame jf = new JFrame();
+        jf.getContentPane().add(jp);
+        jf.pack();
+        jf.setVisible(true);
+        this.viewUpdate();
+    }
+    
+    private void viewUpdate(){
+        this.buttons.forEach(jb -> jb.setText(buttons.indexOf(jb)==model.getPosition()?"*":" "));
+    }
+    
+    public static void main(String[] s){
+        new GUI(10);
+    }
+
+}

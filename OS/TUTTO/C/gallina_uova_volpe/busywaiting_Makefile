@@ -1,0 +1,21 @@
+# Makefile per busywaiting_gallinauovavolpe.c
+# a causa della presenza di strerror_r in printerror.h
+# occorre compilare col flag -D_POSIX_C_SOURCE=200112L
+
+CFLAGS=-ansi -Wpedantic -Wall -D_REENTRANT -D_POSIX_C_SOURCE=200112L
+LFLAGS=
+LIBRARIES=-lpthread
+
+all: 	busywaiting_gallinauovavolpe.exe
+
+busywaiting_gallinauovavolpe.exe: busywaiting_gallinauovavolpe.o
+	gcc ${LFLAGS} -o busywaiting_gallinauovavolpe.exe busywaiting_gallinauovavolpe.o ${LIBRARIES}
+
+busywaiting_gallinauovavolpe.o: busywaiting_gallinauovavolpe.c printerror.h
+	gcc ${CFLAGS} -c busywaiting_gallinauovavolpe.c 
+
+.PHONY:	clean
+
+clean:
+	rm -f busywaiting_gallinauovavolpe.o busywaiting_gallinauovavolpe.exe
+

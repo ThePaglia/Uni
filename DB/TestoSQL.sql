@@ -14,26 +14,26 @@ select orders.* from orders, customers where orders.CustomerID = customers.Custo
 /* 7.	Selezionare il nome della società e il telefono dei corrieri (shippers) che hanno consegnato 
 ordini nella città di ‘Rio de Janeiro’ (ShipCity in orders)
 N.B. nella tabella orders l'id corriere è l'attributo ShipVia*/
-
+select CompanyName, Phone from shippers, orders where shippers.ShipperID = orders.ShipVia and ShipCity = "Rio de Janeiro";
 /* 8.	Selezionare gli ordini (OrderID, OrderDate, ShippedDate) per cui la spedizione (ShippedDate)
 è avvenuta entro 30 giorni dalla data dell’ordine (OrderDate)*/
-
+select OrderID, OrderDate, ShippedDate from orders where ShippedDate >= OrderDate + 30;
 /* 9.	Selezionare l’elenco dei prodotti che hanno un costo compreso tra 18 e 50, ordinando il risultato
 in ordine di prezzo crescente */
-
+select * from products where UnitPrice between 18 and 50 order by UnitPrice asc;
 /* 10.	Selezionare tutti i clienti (CustomerID, CompanyName) che hanno ordinato il prodotto 'Chang'*/
-
+select customers.CustomerID, CompanyName from customers, orders, `order details`, products where customers.CustomerID = orders.CustomerID and orders.OrderID = `order details`.OrderID and `order details`.ProductID = products.ProductID and ProductName = 'Chang';
 /* 11.	Selezionare i clienti che non hanno mai ordinato prodotti di categoria ‘Beverages’*/
-
+select * from customers where customers.CustomerID not in (select customers.CustomerID from customers, orders, `order details`, products, categories where customers.CustomerID = orders.CustomerID and orders.OrderID = `order details`.OrderID and `order details`.ProductID = products.ProductID and products.CategoryID = categories.CategoryID and CategoryName = "Beverages");
 /* 12.	Selezionare il prodotto più costoso*/
-
+select * from products order by UnitPrice desc limit 1;
 /* 13.	Visualizzare l’importo totale di ciascun ordine fatto dal cliente 'Ernst Handel' (CompanyName)*/
-
+select sum(UnitPrice) as ImportoTotale from customers, orders, `order details` where customers.CompanyName = 'Ernst Handel' and customers.CustomerID = orders.CustomerID and orders.OrderID = `order details`.OrderID;
 /* 14.	Selezionare il numero di ordini ricevuti in ciascun anno */
-
+select count(OrderID) as NumeroOrdini, year(OrderDate) as Anno from orders group by year(OrderDate);
 /* 15.	Visualizzare per ogni impiegato (EmployeeID, LastName, FirstName) il numero di clienti distinti serviti per ciascun paese (Country),
 visualizzando il risultato in ordine di impiegato e di paese*/
-
+select employees.EmployeeID, LastName, FirstName, customers.Country, count(distinct customers.CustomerID) as NumeroClienti from employees, customers, orders where employees.EmployeeID = orders.EmployeeID and orders.CustomerID = customers.CustomerID group by employees.EmployeeID, Country order by employees.EmployeeID, Country;   
 /* 16.	Visualizzare per ogni corriere il numero di consegne effettuate, compresi i dati dei 
 corrieri che non hanno effettuato nessuna consegna */
 

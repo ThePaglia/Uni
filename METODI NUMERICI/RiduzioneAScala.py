@@ -61,13 +61,16 @@ def row_echelon(matrix):
     return matrix
 
 
-testA = np.array([[1,-1,3],[0,1,12],[0,0,-59]])
+testA = np.array([[1,1,1,1],[3,-1,-1,4],[1,7,5,-1]])
+testB = testA.copy()
+testC = testA.copy()
+testD = testA.copy()
 print(row_echelon_form(testA))
 print()
-print(row_echelon(testA))
+print(row_echelon(testB))
 print()
-print(sym.Matrix(testA).rref())
+print(sym.Matrix(testC).rref())
 print()
-print(sym.Matrix(testA).echelon_form(with_pivots=True))
+print(sym.Matrix(testD).echelon_form(with_pivots=True))
 print()
 print(sym.Matrix(testA).rank())

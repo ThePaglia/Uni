@@ -35,7 +35,7 @@ public class Test {
 
 	@org.junit.Before
 	public void init() {
-		this.factory = new ParserFactoryImpl();
+		// this.factory = new ParserFactoryImpl();
 	}
 
 	@org.junit.Test
@@ -70,7 +70,7 @@ public class Test {
 
 	@org.junit.Test
 	public void testGraph() {
-		// un parser che vuole un 1, dopo un 1 ancora un 1 o un 2, dopo un 2 vuole un 2 o un 3, e quindi il 3 deve essere l'ultimo
+		// un parser che vuole un 1, dopo un 1 ancora un 1 o un2, dopo un 2 vuole un 2 o un 3, e quindi il 3 deve essere l'ultimo
 		var parser = this.factory.fromGraph(
 			1,
 			Set.of(

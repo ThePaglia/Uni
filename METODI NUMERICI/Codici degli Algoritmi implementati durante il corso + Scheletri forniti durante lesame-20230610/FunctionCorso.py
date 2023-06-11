@@ -69,7 +69,7 @@ def gauss_seidel(A, b, x0, toll, it_max):
     er_vet = []
     while it <= it_max and errore >= toll:
         temp = b - np.dot(F, x0)
-        x, flag = Lsolve(M, temp)
+        x, flag = RisolviSis.Lsolve(M, temp)
         errore = np.linalg.norm(x - x0) / np.linalg.norm(x)
         er_vet.append(errore)
         x0 = x.copy()

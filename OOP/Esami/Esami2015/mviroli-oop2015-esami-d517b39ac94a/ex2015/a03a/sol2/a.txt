@@ -1,4 +1,0 @@
-Y, Capitale d'Italia è Roma
-N, Capitale d'Italia è Milano
-Y, Capitale di Francia è Parigi
-N, Capitale di Francia è Lione

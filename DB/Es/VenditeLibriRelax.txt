@@ -1,0 +1,48 @@
+group: VenditeLibri 
+
+AUTORI = {
+CodA Cognome Nome Nazionalita
+274809391	Jacq Christian	F
+341221782	Eco	Umberto	I
+409567008	'De Carlo' Andrea I
+472272349	Gringlesby Burt	USA
+267412394	OLeary Michael USA
+}
+
+LIBRI = {
+CodL Titolo Editore
+BU1032 Ramses Bompiani
+BU1111 'Il pendolo di Focault' Mondadori
+BU2075 'Il nome della Rosa'	Mondadori
+BU7832 'Basi di Dati'	Esculapio
+}
+
+COMPOSIZIONI = {
+CodL CodA
+BU1032 274809391
+BU1111 341221782
+BU2075 341221782
+BU7832 472272349
+BU7832 267412394
+}
+
+LIBRERIE = {
+P_IVA	Nome Indirizzo Citta
+6380 'Eric the Read Books' '788 Catamaugus Av'	Seattle
+7066 'Bettini'	'via Roma 3' Cesena
+7067	'1000 Pagine' 'viale Milano' Roma
+7044	'Gulliver' 'viale Garibaldi 3' Roma
+}
+
+VENDITE = {
+P_IVA	CodL	NumCopie
+7067	BU1032	123
+6380	BU7832	356
+7066	BU1032	456
+7066	BU7832	1453
+7066	BU2075	22
+7067	BU7832	1560
+6380	BU1032	10
+6380	BU1111	1490
+6380 	BU2075	250
+}

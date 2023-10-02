@@ -1,6 +1,10 @@
 ##################################################################
 # Step 1 : create the hosts of the LANs                          #
 ##################################################################
+
+# This script sets up the network configuration for two namespaces (H1_1, H1_2, H2_1, H2_2) and a gateway (GW12).
+# It adds a default route for each namespace and assigns an IP address to the gateway interface.
+# Finally, it enables IP forwarding on the gateway.
 for N in 1 2
 do
 	for H in 1 2 

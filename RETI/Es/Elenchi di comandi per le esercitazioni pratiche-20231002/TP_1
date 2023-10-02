@@ -1,0 +1,71 @@
+##################################################################
+# Step 1 : create the hosts of the LANs                          #
+##################################################################
+
+# This script creates two network namespaces and four virtual ethernet interfaces (veth) with unique MAC addresses and IP addresses.
+# It disables IPv6 on each namespace and prints a message for each host created.
+# The script is intended for use in a networking lab environment.
+for N in 1 2
+do
+	for H in 1 2 
+	do
+		NH="H"$N"_"$H
+		MAC="00:00:00:"$N$H":"$N$H":"$N$H
+		ip netns add $NH 
+		ip link add veth0 address "$MAC" type veth peer name eth-$NH	# A livello datalink aggiunge un link virtuale di tipo veth con nome veth0 e MAC address $MAC e un link virtuale di tipo veth con nome eth-$NH
+		ip link set veth0 netns $NH										# Collega il link virtuale veth0 al namespace $NH
+		ip netns exec $NH ip link set veth0 up							# Mi trasferisco nel namespace $NH e setto il link veth0 up
+		ip netns exec $NH ip addr add 192.168.$N.$H/24 dev veth0		# Mi trasferisco nel namespace $NH e assegno l'indirizzo IP 192.168.$N.$H/24 al link veth0
+		ip netns exec $NH sysctl -w net.ipv6.conf.all.disable_ipv6=1	  #
+		ip netns exec $NH sysctl -w net.ipv6.conf.default.disable_ipv6=1 # Disabilita IPv6
+		ip netns exec $NH sysctl -w net.ipv6.conf.lo.disable_ipv6=1		  #
+		MS="Host "$NH" done"
+		echo $MS
+	done
+done
+
+##################################################################
+# Step 2 : create LAN bridge and connect                         #
+##################################################################
+
+# This script creates a network bridge or an Open vSwitch bridge depending on the argument passed to it.
+# If the argument is "lbr", it creates a Linux bridge and adds two hosts to it.
+# If the argument is "ovs", it creates an Open vSwitch bridge and adds two hosts to it.
+# If the argument is anything else, it prints an error message.
+case $1 in
+
+  "lbr")
+  ip link add LAN type bridge
+  ip link set LAN up
+  for N in 1 2
+  do
+	for H in 1 2
+	do
+		NH="H"$N"_"$H
+		ip link set eth-$NH master LAN
+		ip link set eth-$NH up
+	done
+  done
+  bridge link
+  ;;
+  
+  "ovs")
+  ovs-vsctl add-br LAN
+  for N in 1 2
+  do
+	for H in 1 2
+	do
+		NH="H"$N"_"$H
+		ovs-vsctl add-port LAN eth-$NH
+		ip link set eth-$NH up
+	done
+  done
+  ovs-vsctl list-ports LAN
+  ;;
+
+  *)
+  echo "Error no network"
+  ;;
+esac
+
+

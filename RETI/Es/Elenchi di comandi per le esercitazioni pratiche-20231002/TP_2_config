@@ -1,0 +1,15 @@
+##################################################################
+# Step 1 : create the hosts of the LANs                          #
+##################################################################
+for N in 1 2
+do
+	for H in 1 2 
+	do
+		NH="H"$N"_"$H
+		ip netns exec $NH ip route add default via 192.168.$N.254
+	done
+	ip netns exec GW12 ip addr add 192.168.$N.254/24 dev veth$N
+	MS="Network "$N" done"
+	echo $MS
+done
+ip netns exec GW12 sysctl -w net.ipv4.ip_forward=1

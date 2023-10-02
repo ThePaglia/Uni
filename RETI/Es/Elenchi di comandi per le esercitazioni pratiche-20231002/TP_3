@@ -1,0 +1,94 @@
+##################################################################
+# Step 1 : create the hosts of the LANs                          #
+##################################################################
+for N in 1 2 3
+do
+	for H in 1 2 
+	do
+		NH="H"$N"_"$H
+		MAC="00:00:00:"$N$H":"$N$H":"$N$H
+		ip netns add $NH
+		ip link add veth0 address "$MAC" type veth peer name eth-$NH
+		ip link set veth0 netns $NH
+		ip netns exec $NH ip link set veth0 up
+		ip netns exec $NH ip addr add 192.168.$N.$H/24 dev veth0
+		ip netns exec $NH sysctl -w net.ipv6.conf.all.disable_ipv6=1
+		ip netns exec $NH sysctl -w net.ipv6.conf.default.disable_ipv6=1
+		ip netns exec $NH sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+		MS="Host "$NH" done"
+		echo $MS
+	done
+
+##################################################################
+# Step 2 : create LAN bridge and connect                         #
+##################################################################
+	case $1 in
+
+  		"lbr")
+  		ip link add LAN$N type bridge
+ 		ip link set LAN$N up
+ 		for H in 1 2
+ 		do
+			NH="H"$N"_"$H
+			ip link set eth-$NH master LAN$N
+			ip link set eth-$NH up
+		done
+
+		bridge link
+	;;
+  
+		"ovs")
+		ovs-vsctl add-br LAN$N
+		for H in 1 2
+		do
+			NH="H"$N"_"$H
+			ovs-vsctl add-port LAN$N eth-$NH
+			ip link set eth-$NH up
+		done
+
+		ovs-vsctl list-ports LAN$N
+	;;
+
+		*)
+  		echo "Error no network"
+  	;;
+	esac
+
+done
+
+##################################################################
+# Step 3 : add gateway                                           #
+##################################################################
+
+ip netns add GW12
+ip netns exec GW12 sysctl -w net.ipv6.conf.all.disable_ipv6=1
+ip netns exec GW12 sysctl -w net.ipv6.conf.default.disable_ipv6=1
+ip netns exec GW12 sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+MAC="00:00:00:AA:AA:AA"
+ip link add veth1 address "$MAC" type veth peer name eth-G1
+ip link set veth1 netns GW12
+ip netns exec GW12 ip link set veth1 up
+MAC="00:00:00:BB:BB:BB"
+ip link add veth2 address "$MAC" type veth peer name eth-G2
+ip link set veth2 netns GW12
+ip netns exec GW12 ip link set veth2 up
+ip link set eth-G1 master LAN1
+ip link set eth-G1 up
+ip link set eth-G2 master LAN2
+ip link set eth-G2 up
+echo "Done: gateway 12 up"
+
+ip netns add GW3
+ip netns exec GW3 sysctl -w net.ipv6.conf.all.disable_ipv6=1
+ip netns exec GW3 sysctl -w net.ipv6.conf.default.disable_ipv6=1
+ip netns exec GW3 sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+MAC="00:00:00:CC:CC:CC"
+ip link add veth1 address "$MAC" type veth peer name eth-G3
+ip link set veth1 netns GW3
+ip netns exec GW3 ip link set veth1 up
+ip link set eth-G3 master LAN3
+ip link set eth-G3 up
+echo "Done: gateway 3 up"
+
+
+

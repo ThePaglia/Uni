@@ -1,0 +1,24 @@
+##################################################################
+# Step 3 : add gateway                                           #
+##################################################################
+
+ip netns add GW12
+ip netns exec GW12 sysctl -w net.ipv6.conf.all.disable_ipv6=1
+ip netns exec GW12 sysctl -w net.ipv6.conf.default.disable_ipv6=1
+ip netns exec GW12 sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+
+MAC="00:00:00:AA:AA:AA"
+ip link add veth1 address "$MAC" type veth peer name eth-G1
+ip link set veth1 netns GW12
+ip netns exec GW12 ip link set veth1 up
+MAC="00:00:00:BB:BB:BB"
+ip link add veth2 address "$MAC" type veth peer name eth-G2
+ip link set veth2 netns GW12
+ip netns exec GW12 ip link set veth2 up
+
+ip link set eth-G1 master LAN
+ip link set eth-G1 up
+ip link set eth-G2 master LAN
+ip link set eth-G2 up
+echo "Done: gateway up"
+

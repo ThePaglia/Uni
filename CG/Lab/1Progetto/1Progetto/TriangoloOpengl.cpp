@@ -1,102 +1,84 @@
-// TriangoloOpengl.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
-// Triangolo_OpenGL.cpp : Questo file contiene la funzione 'main', in cui inizia e termina l'esecuzione del programma.
-//
-
+#include <GL/glut.h>
 #include <iostream>
-#include "ShaderMaker.h"
-#include <GL/glew.h>
-#include <GL/freeglut.h>
 
-static unsigned int programId;
+const int screenWidth = 800;
+const int screenHeight = 800;
 
-unsigned int VAO;
-unsigned int VBO;
+const double xMin = -2.0;
+const double xMax = 1.0;
+const double yMin = -1.5;
+const double yMax = 1.5;
+const int maxIterations = 100;
 
+void mandelbrotSet() {
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(xMin, xMax, yMin, yMax);
+    glMatrixMode(GL_MODELVIEW);
 
-//Vertici del triangolo nel sistema di coordinate normalizzate
+    glBegin(GL_POINTS);
 
-float vertices[] = {
-	// posizioni         // colori
-	 -0.5f, -0.5f, 0.0f,  // vertice in basso a sinistra
-	  0.5f, -0.5f, 0.0f,  // vertice in basso a destra
-	 0.0f,  0.5f, 0.0f // vertice in alto 
-};
+    for (int i = 0; i < screenWidth; i++) {
+        for (int j = 0; j < screenHeight; j++) {
+            double x = xMin + (xMax - xMin) * i / (screenWidth - 1);
+            double y = yMin + (yMax - yMin) * j / (screenHeight - 1);
 
-void gestisci_shader(void)
+            double real = x;
+            double imag = y;
 
-{
-	GLenum ErrorCheckValue = glGetError();
+            int iterations = 0;
+            while (iterations < maxIterations) {
+                double real2 = real * real;
+                double imag2 = imag * imag;
 
-	char* vertexShader = (char*)"vertexShader.glsl";
-	char* fragmentShader = (char*)"fragmentShader.glsl";
+                if (real2 + imag2 > 4.0) {
+                    break;
+                }
 
-	programId = ShaderMaker::createProgram(vertexShader, fragmentShader);
-	glUseProgram(programId);
+                imag = 2.0 * real * imag + y;
+                real = real2 - imag2 + x;
 
+                iterations++;
+            }
+
+            float color = static_cast<float>(iterations) / maxIterations;
+            glColor3f(color, color, color);
+            glVertex2d(x, y);
+        }
+    }
+
+    glEnd();
+    glFlush();
 }
 
-	void INIT_VAO(void)
-{
-	//Genero un VAO
-	glGenVertexArrays(1, &VAO);
-	//Ne faccio il bind (lo collego, lo attivo)
-	glBindVertexArray(VAO);
-
-	//AL suo interno genero un VBO
-	glGenBuffers(1, &VBO);
-	//Ne faccio il bind (lo collego, lo attivo, assegnandogli il tipo GL_ARRAY_BUFFER)
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	//Carico i dati vertices sulla GPU
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	// Configurazione dell'attributo posizione: informo il vertex shader su: dove trova le informazioni sulle posizioni e come le deve leggere
-	//dal buffer caricato sulla GPU
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-
-	glClearColor(0.0, 0.0, 0.0, 1.0);
-
-
-
-
-
-}
-void drawScene(void)
-{
-
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	glBindVertexArray(VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-
-	glutSwapBuffers();
-
-
-
+void display() {
+    glClear(GL_COLOR_BUFFER_BIT);
+    mandelbrotSet();
+    glutSwapBuffers();
 }
 
-int main(int argc, char* argv[])
-{
-	glutInit(&argc, argv);
-
-	glutInitContextVersion(4, 0);
-	glutInitContextProfile(GLUT_CORE_PROFILE);
-
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-
-	glutInitWindowSize(800, 800);
-	glutInitWindowPosition(100, 100);
-	glutCreateWindow("Triangolo OpenGL");
-	glutDisplayFunc(drawScene);
-
-
-	glewExperimental = GL_TRUE;
-	glewInit();
-	gestisci_shader();
-	INIT_VAO();
-
-	glutMainLoop();
+void reshape(int width, int height) {
+    glViewport(0, 0, width, height);
+    glutPostRedisplay();  // Richiedi un nuovo rendering quando la finestra viene ridimensionata
 }
 
+void idle() {
+    // Esegui il calcolo del frattale ad ogni iterazione
+    mandelbrotSet();
+    glutPostRedisplay();  // Richiedi un nuovo rendering
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitWindowSize(screenWidth, screenHeight);
+    glutCreateWindow("Frattale di Mandelbrot");
+    glutDisplayFunc(display);
+    glutReshapeFunc(reshape);
+    glutIdleFunc(idle);  // Imposta la funzione idle per il calcolo iterativo
+
+    glClearColor(0.0, 0.0, 0.0, 1.0);
+
+    glutMainLoop();
+    return 0;
+}

@@ -23,7 +23,7 @@ char* ShaderMaker::readShaderSource(const char* shaderFile)
 	return buf;
 }
 
-GLuint ShaderMaker::createProgram(char* vertexfilename, char *fragmentfilename)
+GLuint ShaderMaker::createProgram(char* vertexfilename, char* fragmentfilename)
 {
 	GLenum ErrorCheckValue = glGetError();
 	int success;
@@ -43,8 +43,8 @@ GLuint ShaderMaker::createProgram(char* vertexfilename, char *fragmentfilename)
 	//Associamo all'identificativo il codice del vertex shader
 	glShaderSource(vertexShaderId, 1, (const char**)&VertexShader, NULL);
 	//Compiliamo il Vertex SHader
-	glCompileShader(vertexShaderId); 
-	
+	glCompileShader(vertexShaderId);
+
 	glGetShaderiv(vertexShaderId, GL_COMPILE_STATUS, &success);
 	if (!success) {
 		glGetShaderInfoLog(vertexShaderId, 512, NULL, infoLog);
@@ -64,7 +64,7 @@ GLuint ShaderMaker::createProgram(char* vertexfilename, char *fragmentfilename)
 	//Compiliamo il FRAGMENT SHader
 	glCompileShader(fragmentShaderId);
 
-	 
+
 	glGetShaderiv(fragmentShaderId, GL_COMPILE_STATUS, &success);
 	if (!success) {
 		glGetShaderInfoLog(fragmentShaderId, 512, NULL, infoLog);
@@ -91,6 +91,6 @@ GLuint ShaderMaker::createProgram(char* vertexfilename, char *fragmentfilename)
 	glAttachShader(programId, vertexShaderId);
 	glAttachShader(programId, fragmentShaderId);
 	glLinkProgram(programId);
-	
+
 	return programId;
 }

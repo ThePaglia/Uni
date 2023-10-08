@@ -1,0 +1,6 @@
+﻿  main.cpp
+C:\Users\marti\Desktop\Uni\CG\Lab\07 - Farfalla\Farfalla\main.cpp(27,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\marti\Desktop\Uni\CG\Lab\07 - Farfalla\Farfalla\main.cpp(36,20): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\marti\Desktop\Uni\CG\Lab\07 - Farfalla\Farfalla\main.cpp(38,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\marti\Desktop\Uni\CG\Lab\07 - Farfalla\Farfalla\main.cpp(39,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Farfalla.vcxproj -> C:\Users\marti\Desktop\Uni\CG\Lab\07 - Farfalla\x64\Debug\Farfalla.exe

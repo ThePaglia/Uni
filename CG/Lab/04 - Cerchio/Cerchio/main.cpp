@@ -10,7 +10,7 @@ static unsigned int programId;
 unsigned int VBO;
 unsigned int VAO;
 
-unsigned int nTriangles = 50;			 // Pi� triangoli uso, pi� il cerchio sar� tondo
+unsigned int nTriangles = 104;			 // Pi� triangoli uso, pi� il cerchio sar� tondo
 unsigned int nVertices = nTriangles + 2; // Deve collegare anche il centro e l'ultimo vertice
 
 // Struct di un vertice (pixel)

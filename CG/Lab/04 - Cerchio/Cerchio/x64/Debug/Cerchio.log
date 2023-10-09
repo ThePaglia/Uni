@@ -1,4 +1,4 @@
 ﻿  main.cpp
-C:\Users\marti\Desktop\Uni\CG\Lab\04 - Cerchio\Cerchio\main.cpp(27,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\marti\Desktop\Uni\CG\Lab\04 - Cerchio\Cerchio\main.cpp(35,20): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\marti\Desktop\Uni\CG\Lab\04 - Cerchio\Cerchio\main.cpp(29,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\marti\Desktop\Uni\CG\Lab\04 - Cerchio\Cerchio\main.cpp(37,20): warning C4018: '<=': signed/unsigned mismatch
   Cerchio.vcxproj -> C:\Users\marti\Desktop\Uni\CG\Lab\04 - Cerchio\x64\Debug\Cerchio.exe

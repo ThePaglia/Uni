@@ -10,7 +10,7 @@ static unsigned int programId;
 unsigned int VBO;
 unsigned int VAO;
 
-unsigned int nTriangles = 1000;			// Più triangoli uso, più il cerchio sarà tondo
+unsigned int nTriangles = 1000;			// Piï¿½ triangoli uso, piï¿½ il cerchio sarï¿½ tondo
 unsigned int nVertices = nTriangles + 2;	// Deve collegare anche il centro e l'ultimo vertice
 
 // Struct di un vertice (pixel)
@@ -32,17 +32,15 @@ void drawCircle(float cx, float cy, float rx, float ry, Vertex* circle) {
 	circle[0].g = 0.0f;
 	circle[0].b = 0.0f;
 	circle[0].a = 1.0f;
-	unsigned int count = 1;
 	for (int i = 0; i <= nVertices; i++) {
 		float theta_i = (float)i * step;
-		circle[count].x = cx + rx * (sin(theta_i) * (exp(cos(theta_i) - 2 * cos(4 * theta_i)) - pow(sin(theta_i / 12), 5)));
-		circle[count].y = cy + ry * (cos(theta_i) * (exp(cos(theta_i) - 2 * cos(4 * theta_i)) - pow(sin(theta_i / 12), 5)));
-		circle[count].z = 0;
-		circle[count].r = 0.0f;
-		circle[count].g = 0.0f;
-		circle[count].b = 1.0f;
-		circle[count].a = 1.0f;
-		count++;
+		circle[i].x = cx + rx * (sin(theta_i) * (exp(cos(theta_i) - 2 * cos(4 * theta_i)) - pow(sin(theta_i / 12), 5)));
+		circle[i].y = cy + ry * (cos(theta_i) * (exp(cos(theta_i) - 2 * cos(4 * theta_i)) - pow(sin(theta_i / 12), 5)));
+		circle[i].z = 0;
+		circle[i].r = 0.0f;
+		circle[i].g = 0.0f;
+		circle[i].b = 1.0f;
+		circle[i].a = 1.0f;
 	}
 }
 
@@ -90,10 +88,10 @@ int main(int argc, char* argv[])
 	glutInit(&argc, argv);							// Inizializza il FreeGLUT toolkit
 	glutInitContextVersion(4, 0);					// Imposta la versione del contesto (OpenGL 4.0)
 	glutInitContextProfile(GLUT_CORE_PROFILE);		// Imposta il profilo del contesto
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);	// Specifica che verrà allocato un Buffer Display unico e i colori sono in formato RGBA
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);	// Specifica che verrï¿½ allocato un Buffer Display unico e i colori sono in formato RGBA
 	glutInitWindowSize(700, 700);					// Imposta la dimensione della finestra (pixel x pixel)
 	glutInitWindowPosition(400, 50);				// Imposta la distanza dall'angolo in alto a sinistra dello schermo
-	glutCreateWindow("Farfalla OpenGL");			// Crea una finestra sullo schermo e gli dà un titolo
+	glutCreateWindow("Farfalla OpenGL");			// Crea una finestra sullo schermo e gli dï¿½ un titolo
 	glutDisplayFunc(drawScene);
 	glewExperimental = GL_TRUE;
 	glewInit();

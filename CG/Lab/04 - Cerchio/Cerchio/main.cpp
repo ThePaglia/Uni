@@ -102,4 +102,5 @@ int main(int argc, char *argv[])
 	gestisci_shader();
 	INIT_VAO();
 	glutMainLoop();
+	cout << "Ciao";
 }

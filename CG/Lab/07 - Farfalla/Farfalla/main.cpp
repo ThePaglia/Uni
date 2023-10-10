@@ -10,7 +10,7 @@ static unsigned int programId;
 unsigned int VBO;
 unsigned int VAO;
 
-unsigned int nTriangles = 1000;			// Pi� triangoli uso, pi� il cerchio sar� tondo
+unsigned int nTriangles = 100;			// Pi� triangoli uso, pi� il cerchio sar� tondo
 unsigned int nVertices = nTriangles + 2;	// Deve collegare anche il centro e l'ultimo vertice
 
 // Struct di un vertice (pixel)
@@ -29,13 +29,13 @@ void drawCircle(float cx, float cy, float rx, float ry, Vertex* circle) {
 	circle[0].y = cy;
 	circle[0].z = 0;
 	circle[0].r = 0.0f;
-	circle[0].g = 0.0f;
+	circle[0].g = 1.0f;
 	circle[0].b = 0.0f;
 	circle[0].a = 1.0f;
 	for (int i = 0; i <= nVertices; i++) {
 		float theta_i = (float)i * step;
-		circle[i].x = cx + rx * (sin(theta_i) * (exp(cos(theta_i) - 2 * cos(4 * theta_i)) - pow(sin(theta_i / 12), 5)));
-		circle[i].y = cy + ry * (cos(theta_i) * (exp(cos(theta_i) - 2 * cos(4 * theta_i)) - pow(sin(theta_i / 12), 5)));
+		circle[i].x = cx + rx * ((sin(theta_i) * (exp(cos(theta_i)) - 2 * cos(4 * theta_i)) - pow(sin(theta_i / 12), 5)));
+		circle[i].y = cy + ry * ((cos(theta_i) * (exp(cos(theta_i)) - 2 * cos(4 * theta_i)) - pow(sin(theta_i / 12), 5)));
 		circle[i].z = 0;
 		circle[i].r = 0.0f;
 		circle[i].g = 0.0f;
@@ -55,7 +55,7 @@ void gestisci_shader(void) {
 // Inizializza il VAO
 void INIT_VAO(void)
 {
-	drawCircle(0.0f, 0.0f, 0.05f, 0.05f, circle);
+	drawCircle(0.0f, 0.0f, 0.1f, 0.1f, circle);
 	glGenVertexArrays(1, &VAO);	// Creo il VAO
 	glBindVertexArray(VAO);		// Faccio il bind (lo collego e lo attivo)
 

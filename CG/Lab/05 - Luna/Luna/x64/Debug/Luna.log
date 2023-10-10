@@ -1,5 +1,0 @@
-﻿  main.cpp
-C:\Users\marti\Desktop\Uni\CG\Lab\05 - Luna\Luna\main.cpp(27,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\marti\Desktop\Uni\CG\Lab\05 - Luna\Luna\main.cpp(36,20): warning C4018: '<=': signed/unsigned mismatch
-C:\Users\marti\Desktop\Uni\CG\Lab\05 - Luna\Luna\main.cpp(38,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  Luna.vcxproj -> C:\Users\marti\Desktop\Uni\CG\Lab\05 - Luna\x64\Debug\Luna.exe

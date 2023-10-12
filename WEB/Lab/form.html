@@ -2,36 +2,59 @@
 <html lang="it">
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>Primo esercizio</title>
 </head>
 
 <body>
-    <form action="script.php" method="GET">
+    <h1>Contatti</h1>
+    <form action="#" method="GET">
         <fieldset>
-            <legend>Anagrafica</legend>
-            <label>Nome:
-                <input type="text" name="nome" autocomplete="on" placeholder="nome.." required /></label>
-            <label>Cognome:
-                <input type="text" name="cognome" autocomplete="on" placeholder="cognome.." required /></label>
-            <label>Email referente:
-                <input type="email" name="email" autocomplete="on" placeholder="email.." required /></label>
+            <legend>Infomazioni Anagrafiche</legend>
+            <label for="nome">Nome:
+                <input type="text" id="nome" name="nome" autocomplete="on" placeholder="Nome..." required/></label><br/>
+            <label for="cognome">Cognome:
+                <input type="text" id="cognome" name="cognome" autocomplete="on" placeholder="Cognome..." required/></label><br/>
+            <label for="CF">Codice Fiscale:
+                <input type="text" id="CF" name="CF" autocomplete="on" placeholder="Codice fiscale..." required/></label><br/>
+            <label for="dataNascita">Data di Nascita:
+                <input type="date" id="dataNascita" name="dataNascita" required /></label><br/>
+            <label for="luogoNascita">Luogo di Nascita:
+                <input type="text" id="luogoNascita" name="luogoNascita" autocomplete="on" placeholder="Luogo di nascita..." required/></label><br/>
+            <label for="indirizzo">Indirizzo:
+                <input type="text" id="indirizzo" name="indirizzo" autocomplete="on" placeholder="Indirizzo..." required/></label><br/>
         </fieldset>
         <fieldset>
-            <legend>Tipo elaborato</legend>
-            <label>Tipo elaborato:
-                <select name="tipoElaborato">
-                    <option value="semplice">Semplice</option>
-                    <option value="medio">Medio</option>
-                    <option value="complesso">Complesso</option>
-                </select>
-            </label>
-            <label>Numero membri:
-                <input type="number" name="nrMembri" min="1" max="4" required />
-            </label>
+            <legend>Preferenze</legend>
+
+            <label for="assicurazione">Assicurazione:</label><br/>
+            <label for="primo">
+            <input type="radio" id="primo" name="assicurazione" value="primo">Primo Livello</label><br/>
+            <label for="secondo">
+            <input type="radio" id="secondo" name="assicurazione" value="secondo">Secondo Livello</label><br/>
+            <label for="terzo">
+            <input type="radio" id="terzo" name="assicurazione" value="terzo">Terzo Livello</label><br/>
+
+            <label for="mezzo">Mezzo:</label>
+            <select name="mezzo" id="mezzo">
+                <option value="">None</option>
+                <option value="auto">Automobile</option>
+                <option value="moto">Moto</option>
+                <option value="bici">Bicicletta</option>
+                <option value="mono">Monopattino</option>
+            </select><br/>
+
+            <label for='automunito'>Automunito:</label>
+            <input type='checkbox' id='automunito' name='automunito'><br/>
+
+            <label for='descrizione'>Descrizione:</label><br/>
+            <textarea id='descrizione' name='descrizione'></textarea><br/>
+
         </fieldset>
 
-        <input type="submit" value="Invia" />
+        <input type="submit" value="Invia"/>
+        <input type="reset" value="Cancella"/>
+        
     </form>
 </body>
 

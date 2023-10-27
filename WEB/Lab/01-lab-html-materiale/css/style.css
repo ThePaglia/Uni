@@ -68,7 +68,8 @@ article {
 }
 
 article>header>img {
-    max-height: 200px;
+    max-height: 300px;
+    max-width: 300px;
 }
 
 article>header {
@@ -82,6 +83,35 @@ article>header>p {
     padding: 0 5%;
 }
 
+main>section>h2 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 0 0 20px;
+}
+
+main>section {
+    padding: 20px 5%;
+}
+
+table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+td,
+th {
+    border: 1px solid black;
+    padding: 5px 0;
+}
+
+th {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+td {
+    text-align: center;
+}
+
 article>section {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     padding: 0 5%;
@@ -92,11 +122,129 @@ article>footer {
     padding: 20px 5%;
 }
 
-article>footer a {
+article>footer a,
+input[type="submit"] {
     background-color: #e4e4e4;
     border-radius: 5px;
     text-decoration: none;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: black;
     padding: 5px 10px;
+}
+
+form {
+    padding: 20px 5%;
+}
+
+form ul {
+    list-style: none;
+    width: 80%;
+    margin: 0 10%;
+}
+
+form ul li {
+    margin-bottom: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+form ul li input,
+label {
+    display: inline-block;
+    width: 40%;
+}
+
+input[type="submit"] {
+    background-color: #e4e4e4;
+    border-radius: 5px;
+    text-decoration: none;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: black;
+    padding: 5px 10px;
+    width: 20%;
+    margin-left: 65%;
+}
+
+aside {
+    background-color: white;
+    margin: 0 5% 20px;
+    border: 1px solid #cacaca;
+    box-sizing: border-box;
+}
+
+aside>section {
+    padding: 20px 5%;
+}
+
+aside h2 {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0 0 15px;
+}
+
+aside ul {
+    list-style: none;
+}
+
+aside li {
+    margin-bottom: 10px;
+}
+
+aside li>img {
+    width: 50px;
+    float: left;
+    margin-right: 10px;
+}
+
+aside a {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+aside a:visited {
+    color: purple;
+}
+
+aside a:hover {
+    text-decoration: underline;
+    color: rgb(219, 69, 83);
+}
+
+body>footer {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+
+
+@media screen and (min-width: 768px) {
+    nav {
+        margin: 0 10%;
+    }
+
+    nav ul li {
+        width: 16%;
+        display: inline-block;
+    }
+
+    nav ul li:not(:last-child) {
+        margin-right: 7%;
+    }
+
+    main,
+    aside {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    main {
+        width: 45%;
+        margin: 20px 5% 0 10%;
+    }
+
+    aside {
+        width: 25%;
+        margin: 20px 10% 0 0;
+    }
 }

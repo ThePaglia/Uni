@@ -2,6 +2,7 @@ body {
     background-color: #e4e4e4;
 }
 
+
 body,
 header,
 h1,
@@ -28,7 +29,7 @@ nav {
 }
 
 nav ul {
-    list-style: none;
+    list-style: none;;
 }
 
 nav ul li {
@@ -50,26 +51,28 @@ nav ul li a {
 }
 
 nav ul li:nth-child(odd) {
-    margin-right: 9.7%;
+    margin-right: 10%;
 }
 
 nav ul li a:hover {
-    background-color: rgb(219, 69, 83);
+    color: rgb(219, 69, 83);
 }
 
 main {
     margin: 20px 5% 0;
 }
 
-article {
+article,
+main>section {
     background-color: white;
     border: #cacaca 1px solid;
     margin-bottom: 20px;
 }
 
 article>header>img {
-    max-height: 300px;
-    max-width: 300px;
+    max-height: 200px;
+    max-width: 100%;
+
 }
 
 article>header {
@@ -79,18 +82,21 @@ article>header {
 article>header>h2,
 article>header>p {
     text-align: left;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     padding: 0 5%;
 }
+
 
 main>section>h2 {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin: 0 0 20px;
 }
 
+
 main>section {
     padding: 20px 5%;
 }
+
 
 table {
     width: 100%;
@@ -100,7 +106,7 @@ table {
 
 td,
 th {
-    border: 1px solid black;
+    border: 1px solid #000;
     padding: 5px 0;
 }
 
@@ -122,8 +128,7 @@ article>footer {
     padding: 20px 5%;
 }
 
-article>footer a,
-input[type="submit"] {
+article>footer a {
     background-color: #e4e4e4;
     border-radius: 5px;
     text-decoration: none;
@@ -132,40 +137,53 @@ input[type="submit"] {
     padding: 5px 10px;
 }
 
-form {
-    padding: 20px 5%;
+
+article>footer a:hover {
+    color: rgb(219, 69, 83);
+    font-weight: bold;
+}
+
+form li {
+    list-style-type: none;
+    margin-bottom: 20px;
 }
 
 form ul {
-    list-style: none;
-    width: 80%;
-    margin: 0 10%;
+    width: 90%;
+    margin: 0 5%;
 }
 
-form ul li {
-    margin-bottom: 20px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-form ul li input,
-label {
+form label {
     display: inline-block;
-    width: 40%;
+    width: 30%;
 }
 
-input[type="submit"] {
-    background-color: #e4e4e4;
-    border-radius: 5px;
-    text-decoration: none;
+form input:not([type="submit"]) {
+    width: 50%;
+    box-sizing: border-box;
+}
+
+form li:last-child {
+    text-align: right;
+    margin-right: 20%;
+
+}
+
+form input[type="submit"] {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color: black;
-    padding: 5px 10px;
-    width: 20%;
-    margin-left: 65%;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+form input[type="submit"]:hover {
+    color: rgb(219, 69, 83);
+    font-weight: bold;
 }
 
 aside {
-    background-color: white;
+    background-color: #fff;
     margin: 0 5% 20px;
     border: 1px solid #cacaca;
     box-sizing: border-box;
@@ -178,7 +196,7 @@ aside>section {
 aside h2 {
     font-size: 16px;
     font-weight: bold;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin: 0 0 15px;
 }
 
@@ -200,8 +218,10 @@ aside a {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     text-decoration: none;
     font-weight: bold;
-    color: black;
+    color: #000;
 }
+
+
 
 aside a:visited {
     color: purple;
@@ -217,20 +237,23 @@ body>footer {
 }
 
 
-
 @media screen and (min-width: 768px) {
+
     nav {
         margin: 0 10%;
     }
 
+
     nav ul li {
-        width: 16%;
+        width: 17%;
         display: inline-block;
     }
 
+
     nav ul li:not(:last-child) {
-        margin-right: 7%;
+        margin-right: 8%;
     }
+
 
     main,
     aside {
@@ -238,10 +261,12 @@ body>footer {
         vertical-align: top;
     }
 
+
     main {
-        width: 45%;
+        width: 50%;
         margin: 20px 5% 0 10%;
     }
+
 
     aside {
         width: 25%;

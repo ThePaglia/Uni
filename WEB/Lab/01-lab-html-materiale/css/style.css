@@ -29,7 +29,8 @@ nav {
 }
 
 nav ul {
-    list-style: none;;
+    list-style: none;
+    ;
 }
 
 nav ul li {
@@ -236,24 +237,20 @@ body>footer {
     font-family: 'Courier New', Courier, monospace;
 }
 
-
 @media screen and (min-width: 768px) {
 
     nav {
         margin: 0 10%;
     }
 
-
     nav ul li {
         width: 17%;
         display: inline-block;
     }
 
-
     nav ul li:not(:last-child) {
         margin-right: 8%;
     }
-
 
     main,
     aside {
@@ -261,12 +258,10 @@ body>footer {
         vertical-align: top;
     }
 
-
     main {
         width: 50%;
         margin: 20px 5% 0 10%;
     }
-
 
     aside {
         width: 25%;

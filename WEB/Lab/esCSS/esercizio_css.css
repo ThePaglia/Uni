@@ -1,0 +1,63 @@
+header,
+section,
+nav,
+aside,
+footer {
+    font-family: monospace;
+    font-size: 100%;
+}
+
+header {
+    text-align: right;
+    color: purple;
+    background: linear-gradient(to bottom right, pink, yellow, pink, purple);
+    border-bottom: 3px solid purple;
+    width: 100%;
+    padding: 25px 0px;
+    margin: 10px 0px;
+}
+
+nav,
+aside,
+section {
+    display: inline-block;
+}
+
+section {
+    width: 50%;
+    /*border
+    padding */
+}
+
+section p {
+    text-align: left;
+    color: black;
+}
+
+nav {
+    width: 15%;
+    background: linear-gradient(to bottom right, pink, yellow, pink, purple);
+    border-bottom: 3px solid purple;
+    border-top: 3px solid purple;
+    /*border
+    padding */
+}
+
+nav:hover {
+    background: linear-gradient(to bottom right, purple, pink, yellow, pink);
+}
+
+nav ul {
+    list-style-type: square;
+    text-align: left;
+    line-height: 2;
+}
+
+nav ul li:hover {
+    background-color: purple;
+    color: white;
+    font-weight: bold;
+    padding: 1%;
+}
+
+/* Continuare da questa istruzione: L’elemento <aside>deve occupare il 20% della larghezza e i suoi paragrafi devono avere colore viola.*/

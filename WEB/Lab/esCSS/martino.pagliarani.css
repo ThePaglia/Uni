@@ -1,8 +1,4 @@
-header,
-section,
-nav,
-aside,
-footer {
+body {
     font-family: monospace;
     font-size: 100%;
 }
@@ -19,14 +15,17 @@ header {
 
 nav,
 aside,
-section {
+section,
+footer {
     display: inline-block;
+    vertical-align: top;
 }
 
 section {
     width: 50%;
-    /*border
-    padding */
+    float: right;
+    margin: 10px 10px;
+    padding: 10px 10px;
 }
 
 section p {
@@ -39,8 +38,9 @@ nav {
     background: linear-gradient(to bottom right, pink, yellow, pink, purple);
     border-bottom: 3px solid purple;
     border-top: 3px solid purple;
-    /*border
-    padding */
+    float: left;
+    margin: 1px 50px 0px 10px;
+    padding: 10px 5px 0px 20px;
 }
 
 nav:hover {
@@ -60,4 +60,25 @@ nav ul li:hover {
     padding: 1%;
 }
 
-/* Continuare da questa istruzione: L’elemento <aside>deve occupare il 20% della larghezza e i suoi paragrafi devono avere colore viola.*/
+aside {
+    width: 20%;
+    margin: auto;
+}
+
+aside p {
+    color: purple;
+}
+
+footer {
+    background: linear-gradient(to top left, pink, yellow, pink, purple);
+    border-top: 3px solid purple;
+    width: 100%;
+    padding: 15px 0px;
+    margin: 10px 0px;
+}
+
+footer p {
+    text-align: center;
+    color: purple;
+    font-size: 80%;
+}

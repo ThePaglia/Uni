@@ -1,4 +1,5 @@
 //Editor di curve con il quale posso disegnare una curva e esportarla in un file di testo mycurve.txt
+//Per visualizzarlo mettere Scena2D_Modellazione _Curve_Studenti e togliere EditorCurve
 
 #include <iostream>
 #include <fstream>
@@ -567,6 +568,7 @@ void createMenu(void)
 
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
+
 int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);

@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{e1110ebf-13ff-4045-bc26-8d12c91d89cf}</ProjectGuid>
-    <RootNamespace>CurveInterpolantiEditor</RootNamespace>
+    <ProjectGuid>{131587e7-b12c-41ef-a353-a67c226bb2bd}</ProjectGuid>
+    <RootNamespace>Sparatutto2D</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -108,6 +108,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -127,12 +128,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="EditorCurve.cpp" />
-    <ClCompile Include="ShaderMaker.cpp" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="GestioneTesto.h" />
+    <ClInclude Include="Gestione_Interazioni.h" />
     <ClInclude Include="Lib.h" />
     <ClInclude Include="ShaderMaker.h" />
+    <ClInclude Include="Strutture.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GestioneTesto.cpp" />
+    <ClCompile Include="Gestione_Geometria.cpp" />
+    <ClCompile Include="Gestione_Interazioni.cpp" />
+    <ClCompile Include="Sparatutto2D.cpp" />
+    <ClCompile Include="ShaderMaker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

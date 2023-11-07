@@ -1,0 +1,6 @@
+Aprire Visual Studio
+Mettere file .h in Header Files
+Mettere file .cpp in Source Files
+Andare in Tools->NuGet Package Manager->Package Manager Console
+Scrivere i comandi Install-Package nupengl.core e Install-Package glm
+Andare in Project->Properties->Linker->Input->Additional Dependencies e scrivere freetype.lib e apply

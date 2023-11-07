@@ -53,9 +53,9 @@ nav ul {
     line-height: 2;
 }
 
-nav ul li:hover {
-    background-color: purple;
+nav ul li a:hover {
     color: white;
+    background-color: purple;
     font-weight: bold;
     padding: 1%;
 }

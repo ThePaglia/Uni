@@ -574,21 +574,18 @@ void drawScene(void)
 	glUniform1f(loctime, time);
 	glUniform2f(locres, resolution.x, resolution.y);
 
-	for (k = 0; k < 1; k++)
-	{
-		if (k == 0)
-		{
-			Scena[k].Model = mat4(1.0);
-			Scena[k].Model = translate(Scena[k].Model, vec3(0.5, 0.5, 0.0));
-			Scena[k].Model = scale(Scena[k].Model, vec3((float)width, (float)height, 1.0));
-		}
-		glUniformMatrix4fv(MatProj, 1, GL_FALSE, value_ptr(Projection));	  // comunica i valori della variabile uniform Projection al vertex shader
-		glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena[k].Model)); // comunica i valori della variabile uniform Model  al vertex shader
-		glUniform1i(locSceltafs, Scena[k].sceltaFs);
-		glBindVertexArray(Scena[k].VAO);
-		glDrawArrays(Scena[k].render, 0, Scena[k].nv);
-		glBindVertexArray(0);
-	}
+	// Disegno il piano
+	Scena[0].Model = mat4(1.0);
+	Scena[0].Model = translate(Scena[0].Model, vec3(0.5, 0.5, 0.0));
+	Scena[0].Model = scale(Scena[0].Model, vec3((float)width, (float)height, 1.0));
+
+	glUniformMatrix4fv(MatProj, 1, GL_FALSE, value_ptr(Projection));	  // comunica i valori della variabile uniform Projection al vertex shader
+	glUniformMatrix4fv(MatModel, 1, GL_FALSE, value_ptr(Scena[0].Model)); // comunica i valori della variabile uniform Model  al vertex shader
+	glUniform1i(locSceltafs, Scena[0].sceltaFs);
+	glBindVertexArray(Scena[0].VAO);
+	glDrawArrays(Scena[0].render, 0, Scena[0].nv);
+	glBindVertexArray(0);
+
 	// Matrice di Modellazione dell'amogus
 	Scena[2].Model = mat4(1.0);
 	Scena[2].Model = translate(Scena[2].Model, vec3(600.0 + dx_t, 300.0 + dy_t, 0.0));

@@ -239,7 +239,7 @@ void mouseMotion(int x, int y)
 	float mousey = (float)height - y;
 
 	mousex = c + mousex * (d - c) / (float)width;
-	mousey = c + mousey * (d - c) / (float)height;
+	mousey = c + mousey * (d - c) / (float)width;
 
 	if (M_I == 1)
 	{
@@ -270,7 +270,7 @@ void onMouse(int button, int state, int x, int y)
 			float mousey = (float)height - y;
 			// Mappo le coordinate del mouse nelle coordinate del mondo
 			mousex = c + mousex * (d - c) / (float)width;
-			mousey = c + mousey * (d - c) / (float)height;
+			mousey = c + mousey * (d - c) / (float)width;
 
 			if (M_I == 1 || mod_par_der == 1)
 			{
@@ -402,7 +402,7 @@ void INIT_VAO(void)
 
 	MatProj = glGetUniformLocation(programId, "Projection");
 	MatModel = glGetUniformLocation(programId, "Model");
-	glViewport(0.0, 0.0, width, height);
+	glViewport(0.0, 0.0, width, width);
 }
 
 void INIT_SHADER(void)
@@ -578,7 +578,7 @@ int main(int argc, char* argv[])
 
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 
-	glutInitWindowSize(width, height);
+	glutInitWindowSize(width, width);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("Editor Curve");
 	glutDisplayFunc(drawScene);

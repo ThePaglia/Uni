@@ -35,17 +35,21 @@ void modifyModelMatrix(vec3 translation_vector, vec3 rotation_vector, GLfloat an
 
 void mouseWheelCallback(int wheel, int direction, int x, int y)
 {
-	if (direction > 0) {
+	if (direction > 0)
+	{
 		SetupProspettiva.fov -= 2.0f; // Restringere il campo visivo, equivale ad avvicinare la scena (quindi a farne uno zoom)
 	}
-	else {
+	else
+	{
 		SetupProspettiva.fov += 2.0f; // Aumentare il campo visivo, equivale ad allontanare la scena (vederlanel suo insieme)
 	}
 	// Limita il FOV per evitare valori non desiderati
-	if (SetupProspettiva.fov < 1.0f) {
+	if (SetupProspettiva.fov < 1.0f)
+	{
 		SetupProspettiva.fov = 1.0f;
 	}
-	if (SetupProspettiva.fov > 180.0f) {
+	if (SetupProspettiva.fov > 180.0f)
+	{
 		SetupProspettiva.fov = 180.0f;
 	}
 	// Richiede il ridisegno della scena
@@ -55,6 +59,7 @@ void keyboardPressedEvent(unsigned char key, int x, int y)
 {
 	char* intStr;
 	string str;
+	Mesh c;
 	switch (key)
 	{
 	case 'a':
@@ -75,13 +80,17 @@ void keyboardPressedEvent(unsigned char key, int x, int y)
 
 	case 'v': // Visualizzazione ancora
 		visualizzaAncora = TRUE;
+		break;
 	case 'C': // Si inserisce un cubo
-
-		cont_cubi += 1;
+		crea_cubo(&c);
+		crea_VAO_Vector(&c);
 		str = std::to_string(cont_cubi);
-
-		Cubo.nome = "Cubo" + str;
-
+		cont_cubi += 1;
+		c.nome = "Cubo" + str;
+		c.Model = glm::mat4(1.0);
+		c.Model = translate(c.Model, vec3(3.5, 2.0, 2.5));
+		c.Model = scale(c.Model, vec3(2.5, 2.5, 2.5));
+		Scena.push_back(c);
 		break;
 	case 'P': // Si inserisce una piramide
 
@@ -190,9 +199,19 @@ void keyboardReleasedEvent(unsigned char key, int x, int y)
 
 vec3 get_ray_from_mouse(float mouse_x, float mouse_y)
 {
-	// TO DO
+	vec4 ndc = vec4(2.0 * mouse_x / width - 1.0, 1.0 - 2.0 * mouse_y / height, -1.0, 1.0);
 
-	return vec3(1.0, 1.0, 1.0);
+	// Coordinate nel clip space
+	vec4 P_clip = vec4(ndc.x, ndc.y, ndc.z, 1.0);
+	// Le coordinate Nell' eye space si ottengono premoltiplicando per l'inversa della matrice Projection.
+	vec4 ViewModelp = inverse(Projection) * P_clip;
+	ViewModelp.w = 1.0;
+	// le coordinate nel world space: si ottengono premoltiplicando per l'inversa della matrice di Vista
+	vec4 Pw = inverse(View) * ViewModelp;
+	// Direzione dalla posizione della telecamera al punto Pw
+	vec3 ray_wor = normalize(vec3(Pw) - vec3(SetupTelecamera.position));
+
+	return ray_wor;
 }
 
 /*controlla se un raggio interseca una sfera. In caso negativo, restituisce false. Rigetta
@@ -201,9 +220,20 @@ le intersezioni dietro l'origine del raggio, e pone  intersection_distance all'i
 
 bool ray_sphere(vec3 ray_origin_wor, vec3 ray_direction_wor, vec3 sphere_centre_wor, float sphere_radius, float* intersection_distance)
 {
-	// TO DO
+	float b = dot(ray_direction_wor, (ray_origin_wor - sphere_centre_wor));
+	float q = dot((ray_origin_wor - sphere_centre_wor), (ray_origin_wor - sphere_centre_wor)) - pow(sphere_radius, 2);
+	float delta = pow(b, 2) - q;
+	float t0 = -b - sqrt(delta);
 
-	return false;
+	if (delta < 0.0f)
+	{
+		return false;
+	}
+	else
+	{
+		*intersection_distance = t0;
+		return t0 > 0.0f;
+	}
 }
 
 void mouse(int button, int state, int x, int y)

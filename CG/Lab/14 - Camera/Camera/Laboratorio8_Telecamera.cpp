@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include "ShaderMaker.h"
 #include "Lib.h"
 #include "geometria.h"
@@ -145,7 +144,7 @@ void update(int value)
 	glutPostRedisplay();
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	glutInit(&argc, argv);
 

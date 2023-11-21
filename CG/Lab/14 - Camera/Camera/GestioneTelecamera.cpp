@@ -8,19 +8,19 @@ extern bool firstMouse;
 extern float lastX, lastY, Theta, Phi;
 void moveCameraForward()
 {
-	vec4 direction = SetupTelecamera.target - SetupTelecamera.position; //Direzione lungo cui si sposta la telecamera in coordinate del mondo
+	vec4 direction = SetupTelecamera.target - SetupTelecamera.position; // Direzione lungo cui si sposta la telecamera in coordinate del mondo
 	SetupTelecamera.position += direction * cameraSpeed;
 }
 
 void moveCameraBack()
 {
-	vec4 direction = SetupTelecamera.target - SetupTelecamera.position; //Direzione lungo cui si sposta la telecamera in coordinate del mondo
+	vec4 direction = SetupTelecamera.target - SetupTelecamera.position; // Direzione lungo cui si sposta la telecamera in coordinate del mondo
 	SetupTelecamera.position -= direction * cameraSpeed;
 }
 
 void moveCameraLeft()
 {
-	vec3 direction = SetupTelecamera.target - SetupTelecamera.position; //Direzione lungo cui si sposta la telecamera in coordinate del mondo
+	vec3 direction = SetupTelecamera.target - SetupTelecamera.position; // Direzione lungo cui si sposta la telecamera in coordinate del mondo
 	vec3 slide_vector = cross(direction, vec3(SetupTelecamera.upVector)) * cameraSpeed;
 	SetupTelecamera.position -= vec4(slide_vector, .0);
 	SetupTelecamera.target -= vec4(slide_vector, .0);
@@ -28,7 +28,7 @@ void moveCameraLeft()
 
 void moveCameraRight()
 {
-	vec3 direction = SetupTelecamera.target - SetupTelecamera.position; //Direzione lungo cui si sposta la telecamera in coordinate del mondo
+	vec3 direction = SetupTelecamera.target - SetupTelecamera.position; // Direzione lungo cui si sposta la telecamera in coordinate del mondo
 	vec3 slide_vector = cross(direction, vec3(SetupTelecamera.upVector)) * cameraSpeed;
 	SetupTelecamera.position += vec4(slide_vector, .0);
 	SetupTelecamera.target += vec4(slide_vector, .0);
@@ -66,8 +66,8 @@ void my_passive_mouse(int xpos, int ypos)
 	front.x = cos(radians(Theta)) * cos(radians(Phi));
 	front.y = sin(radians(Phi));
 	front.z = sin(radians(Theta)) * cos(radians(Phi));
-	SetupTelecamera.direction = vec4(normalize(front), 0.0); //Aggiorno la direzione della telecamera
-	SetupTelecamera.target = SetupTelecamera.position + SetupTelecamera.direction; //aggiorno il punto in cui guarda la telecamera
+	SetupTelecamera.direction = vec4(normalize(front), 0.0);					   // Aggiorno la direzione della telecamera
+	SetupTelecamera.target = SetupTelecamera.position + SetupTelecamera.direction; // aggiorno il punto in cui guarda la telecamera
 
 	glutPostRedisplay();
 }

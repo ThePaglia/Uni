@@ -68,7 +68,7 @@
     <ClCompile Include="ShaderMaker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Laboratorio8_Telecamera.cpp">
+    <ClCompile Include="Laboratorio8_Studenti.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

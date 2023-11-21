@@ -146,7 +146,7 @@
     <ClCompile Include="GestioneTesto.cpp" />
     <ClCompile Include="GestioneVAO.cpp" />
     <ClCompile Include="inizializzazioni.cpp" />
-    <ClCompile Include="Laboratorio8_Telecamera.cpp" />
+    <ClCompile Include="Laboratorio8_Studenti.cpp" />
     <ClCompile Include="ShaderMaker.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -62,8 +62,8 @@ void resize(int w, int h)
 	Projection = perspective(radians(SetupProspettiva.fov), SetupProspettiva.aspect, SetupProspettiva.near_plane, SetupProspettiva.far_plane);
 
 	float AspectRatio_mondo = (float)(width) / (float)(height); // Rapporto larghezza altezza di tutto ci� che � nel mondo
-																// Se l'aspect ratio del mondo � diversa da quella della finestra devo mappare in modo diverso
-																// per evitare distorsioni del disegno
+	// Se l'aspect ratio del mondo � diversa da quella della finestra devo mappare in modo diverso
+	// per evitare distorsioni del disegno
 	if (AspectRatio_mondo > w / h) // Se ridimensioniamo la larghezza della Viewport
 	{
 		glViewport(0, 0, w, w / AspectRatio_mondo);
@@ -140,7 +140,7 @@ void drawScene(void)
 	glutSwapBuffers();
 }
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
 

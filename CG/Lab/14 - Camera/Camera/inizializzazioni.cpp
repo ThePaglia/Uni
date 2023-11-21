@@ -79,6 +79,65 @@ void INIT_VAO(void)
 	Toro.Model = translate(Toro.Model, vec3(-7.0f, 3.0f, 0.0f));
 	Toro.Model = scale(Toro.Model, vec3(1.0f, 1.0f, 1.0f));
 	Scena.push_back(Toro);
+
+	// Pupazzo di neve
+	Mesh Corpo, Testa, Occhi, Bottoni, Naso, Cappello;
+
+	crea_sfera(&Corpo, vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	crea_VAO_Vector(&Corpo);
+	Corpo.nome = "Corpo";
+	Corpo.Model = mat4(1.0);
+	Corpo.Model = translate(Corpo.Model, vec3(0.0f, 1.0f, 7.0f));
+	Corpo.Model = scale(Corpo.Model, vec3(1.5f, 1.5f, 1.5f));
+	Scena.push_back(Corpo);
+
+	crea_sfera(&Testa, vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	crea_VAO_Vector(&Testa);
+	Testa.nome = "Testa";
+	Testa.Model = mat4(1.0);
+	Testa.Model = translate(Testa.Model, vec3(0.0f, 3.0f, 7.0f));
+	Testa.Model = scale(Testa.Model, vec3(0.7f, 0.7f, 0.7f));
+	Scena.push_back(Testa);
+
+	for (int i = 0; i < 2; i++)
+	{
+		crea_sfera(&Occhi, vec4(0.0f, 0.0f, 0.0f, 1.0f));
+		crea_VAO_Vector(&Occhi);
+		Occhi.nome = "Occhi";
+		Occhi.Model = mat4(1.0);
+		Occhi.Model = translate(Occhi.Model, vec3(-0.2 + i * 0.4f, 3.0f, 8.0f));
+		Occhi.Model = scale(Occhi.Model, vec3(0.1f, 0.1f, 0.1f));
+		Scena.push_back(Occhi);
+	}
+
+	for (int i = -1; i < 2; i++)
+	{
+		crea_sfera(&Bottoni, vec4(0.0f, 0.0f, 0.0f, 1.0f));
+		crea_VAO_Vector(&Bottoni);
+		Bottoni.nome = "Bottoni";
+		Bottoni.Model = mat4(1.0);
+		Bottoni.Model = translate(Bottoni.Model, vec3(0.0f, 1.0f + i * 0.5f, 9.0f));
+		Bottoni.Model = scale(Bottoni.Model, vec3(0.1f, 0.1f, 0.1f));
+		Scena.push_back(Bottoni);
+	}
+
+	crea_cono(&Naso, vec4(1.0f, 0.5f, 0.0f, 1.0f));
+	crea_VAO_Vector(&Naso);
+	Naso.nome = "Naso";
+	Naso.Model = mat4(1.0);
+	Naso.Model = translate(Naso.Model, vec3(0.0f, 2.8f, 9.0f));
+	Naso.Model = scale(Naso.Model, vec3(0.1f, 0.1f, 1.0f));
+	Naso.Model = rotate(Naso.Model, radians(-90.0f), vec3(1.0f, 0.0f, 0.0f));
+	Scena.push_back(Naso);
+
+	crea_cono(&Cappello, vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	crea_VAO_Vector(&Cappello);
+	Cappello.nome = "Cappello";
+	Cappello.Model = mat4(1.0);
+	Cappello.Model = translate(Cappello.Model, vec3(0.0f, 4.3f, 7.0f));
+	Cappello.Model = scale(Cappello.Model, vec3(1.0f, 1.0f, 1.0f));
+	Cappello.Model = rotate(Cappello.Model, radians(180.0f), vec3(1.0f, 0.0f, 0.0f));
+	Scena.push_back(Cappello);
 }
 
 void INIT_VAO_Text(void)

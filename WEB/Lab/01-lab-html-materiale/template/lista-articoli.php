@@ -1,4 +1,9 @@
 <?php
+if (isset($templateparams["titolo_pagina"])) : ?>
+    <h2><?php echo $templateparams["titolo_pagina"]; ?></h2>
+<?php endif; ?>
+
+<?php
 foreach ($templateparams["articoli"] as $articolo) : ?>
     <article>
         <header>
@@ -10,7 +15,7 @@ foreach ($templateparams["articoli"] as $articolo) : ?>
             <p><?php echo $articolo["anteprimaarticolo"]; ?></p>
         </section>
         <footer>
-            <p><a href="#">Leggi tutto</a></p>
+            <p><a href="articolo.php?id=<?php echo $articolo["idarticolo"]; ?>">Leggi tutto</a></p>
         </footer>
     </article>
 <?php endforeach; ?>

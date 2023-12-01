@@ -1,0 +1,5 @@
+HTML(HyperText Markup Language): HTML è un linguaggio di markup nato per la formattazione dei documenti ipertestuali che permette di descriverne la struttura usando i tag.
+
+URI(Uniform Resource Identifier): URI è l'identificatore globale di una risorsa in rete.
+
+HTTP(HyperText Transfer Protocol): HTTP è un protocollo di comunicazione che permette lo scambio di richiesta e risposta tra client e server.

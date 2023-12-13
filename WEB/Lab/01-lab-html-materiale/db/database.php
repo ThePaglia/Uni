@@ -56,4 +56,15 @@ class DatabaseHelper
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public function getPostByID($ID)
+    {
+        $query = "SELECT idarticolo, titoloarticolo, dataarticolo, testoarticolo, imgarticolo, nome FROM articolo, autore WHERE autore = idautore AND idarticolo = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $ID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }

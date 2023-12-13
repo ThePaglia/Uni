@@ -1,11 +1,11 @@
 <?php
 require_once("bootstrap.php");
 
-$templateparams["titolo"] = "Blog TW - Archivio";
-$templateparams["nome"] = "lista-articoli.php";
-$templateparams["articolicasuali"] = $dbh->getRandomPosts(2);
-$templateparams["categorie"] = $dbh->getCategories();
+$templateParams["titolo"] = "Blog TW - Archivio";
+$templateParams["nome"] = "lista-articoli.php";
+$templateParams["articolicasuali"] = $dbh->getRandomPosts(2);
+$templateParams["categorie"] = $dbh->getCategories();
 
-$templateparams["autori"] = $dbh->getPosts();
+$templateParams["autori"] = $dbh->getPosts();
 
 require("template/base.php");

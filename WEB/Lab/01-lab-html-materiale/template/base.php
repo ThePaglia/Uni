@@ -4,7 +4,7 @@
 <head>
     <title>
         <?php
-        echo $templateparams["titolo"];
+        echo $templateParams["titolo"];
         ?>
     </title>
     <meta charset="utf-8">
@@ -20,12 +20,12 @@
             <li><a href="index.php">Home</a></li>
             <li><a href="archivio.php">Archivio</a></li>
             <li><a href="contatti.php">Contatti</a></li>
-            <li><a href="login.php"></a></li>
+            <li><a href="login-home.php"></a></li>
         </ul>
     </nav>
     <main>
         <?php
-        require($templateparams["nome"]);
+        require($templateParams["nome"]);
         ?>
     </main>
     <aside>
@@ -33,7 +33,7 @@
             <h2>Post Casuali</h2>
             <ul>
                 <?php
-                foreach ($templateparams["articolicasuali"] as $articolocasuale) :
+                foreach ($templateParams["articolicasuali"] as $articolocasuale) :
                 ?>
                     <li>
                         <img src="<?php echo UPLOAD_DIR . $articolocasuale["imgarticolo"]; ?>" alt="">
@@ -48,7 +48,7 @@
             <h2>Categorie</h2>
             <ul>
                 <?php
-                foreach ($templateparams["categorie"] as $categoria) :
+                foreach ($templateParams["categorie"] as $categoria) :
                 ?>
                     <li><a href="#"><?php echo $categoria["nomecategoria"]; ?></a></li>
                 <?php

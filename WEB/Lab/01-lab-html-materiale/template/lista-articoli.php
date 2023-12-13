@@ -1,10 +1,10 @@
 <?php
-if (isset($templateparams["titolo_pagina"])) : ?>
-    <h2><?php echo $templateparams["titolo_pagina"]; ?></h2>
+if (isset($templateParams["titolo_pagina"])) : ?>
+    <h2><?php echo $templateParams["titolo_pagina"]; ?></h2>
 <?php endif; ?>
 
 <?php
-foreach ($templateparams["articoli"] as $articolo) : ?>
+foreach ($templateParams["articoli"] as $articolo) : ?>
     <article>
         <header>
             <img src="<?php echo UPLOAD_DIR . $articolo["imgarticolo"]; ?>" alt="">

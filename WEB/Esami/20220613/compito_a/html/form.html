@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acquisto Libri di Testo</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+</head>
+
+<body>
+
+    <h1>Form Acquisto Libri di Testo</h1>
+
+    <form action="processa_form.php" method="GET">
+
+        <!-- Gruppo di campi per la selezione dei titoli -->
+        <fieldset>
+            <legend>Seleziona Titolo</legend>
+            <label for="SO">
+                <input type="checkbox" id="SO" name="titolo" value="sistemi_operativi">
+                Sistemi operativi. Concetti ed esempi, di Abraham Silberschatz et al.
+            </label><br>
+            <label for="LP">
+                <input type="checkbox" id="LP" name="titolo" value="linguaggi_di_programmazione">
+                Linguaggi di programmazione. Principi e paradigmi, di Maurizio Gabbrielli e Simone Martini
+            </label><br>
+            <label for="MSO">
+                <input type="checkbox" id="MSO" name="titolo" value="moderni_sistemi_operativi">
+                I moderni sistemi operativi, di Andrew Tanenbaum
+            </label><br>
+            <label for="RETI">
+                <input type="checkbox" id="RETI" name="titolo" value="fondamenti_di_reti">
+                Fondamenti di reti di calcolatori, di Andrew Tanenbaum
+            </label><br>
+        </fieldset>
+
+        <!-- Gruppo di campi per il tipo di formato -->
+        <fieldset>
+            <legend>Tipo di Formato</legend>
+            <label for="copertina_flessibile">
+                <input type="radio" id="copertina_flessibile" name="formato" value="copertina_flessibile">Copertina Flessibile
+            </label><br>
+            <label for="copertina_rigida">
+                <input type="radio" id="copertina_rigida" name="formato" value="copertina_rigida">Copertina Rigida
+            </label><br>
+            <label for="formato_elettronico">
+                <input type="radio" id="formato_elettronico" name="formato" value="formato_elettronico">Formato Elettronico
+            </label><br>
+        </fieldset>
+
+        <!-- Gruppo di campi per la consegna -->
+        <fieldset>
+            <legend>Consegna</legend>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required><br>
+            <label for="cognome">Cognome:</label>
+            <input type="text" id="cognome" name="cognome" required><br>
+            <label for="via">Via:</label>
+            <input type="text" id="via" name="via" required><br>
+            <label for="numero_civico">Numero Civico:</label>
+            <input type="text" id="numero_civico" name="numero_civico" required><br>
+            <label for="citta">Città:</label>
+            <input type="text" id="citta" name="citta" required><br>
+            <label for="provincia">Provincia:</label>
+            <input type="text" id="provincia" name="provincia" required><br>
+            <label for="cap">CAP:</label>
+            <input type="text" id="cap" name="cap" required pattern="[0-9]{5}"><br>
+            <label>Ora Flessibile:</label>
+            <label for="ora_flessibile_si">
+                <input type="radio" id="ora_flessibile_si" name="ora_flessibile_si" value="si">Sì
+            </label>
+            <label for="ora_flessibile_no">
+                <input type="radio" id="ora_flessibile_no" name="ora_flessibile_no" value="no">No<br>
+            </label>
+        </fieldset>
+
+        <!-- Campo per il pagamento alla consegna -->
+        <label for="pagamento">
+            <input type="checkbox" id="pagamento" name="pagamento" value="alla_consegna">
+            Pagamento alla Consegna
+        </label><br>
+
+        <!-- Pulsanti di submit e annulla -->
+        <button type="submit">Invia</button>
+        <button type="reset">Annulla</button>
+
+    </form>
+
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100%;
+}
+
+header {
+    font-weight: bold;
+    color: darkgreen;
+    text-align: center;
+    border: dotted darkgreen 2px;
+    box-shadow: gray 5px 5px 5px;
+    background-color: lightgreen;
+}
+
+nav {
+    size: 20%;
+    float: right;
+    border: dotted darkgreen 2px;
+    box-shadow: gray 5px 5px 5px;
+    background-color: lightgreen;
+    margin-top: 10px;
+    padding-right: 10%;
+}
+
+section {
+    size: 80%;
+    padding-right: 20%;
+}
+
+footer {
+    size: 100%;
+    border: dotted darkgreen 2px;
+    background-color: lightgreen;
+    box-shadow: gray 5px 5px 5px;
+    text-align: center;
+    color: black;
+}

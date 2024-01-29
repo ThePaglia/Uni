@@ -18,18 +18,17 @@ document.addEventListener('DOMContentLoaded', function () {
     var tabelloneCells = document.querySelectorAll('.tabellone td');
     tabelloneCells.forEach(function (cell) {
         cell.addEventListener('click', function () {
-            var currentCell = this;
 
             // Toggle background color on click
-            if (currentCell.style.backgroundColor === 'rgb(202, 202, 202)') {
+            if (cell.style.backgroundColor === 'rgb(202, 202, 202)') {
                 // Cell is already highlighted, reset to normal
-                currentCell.style.backgroundColor = '';
+                cell.style.backgroundColor = '';
             } else {
                 // Reset background color for all cells and highlight the clicked cell
                 tabelloneCells.forEach(function (cell) {
                     cell.style.backgroundColor = '';
                 });
-                currentCell.style.backgroundColor = '#cacaca';
+                cell.style.backgroundColor = '#cacaca';
             }
         });
     });

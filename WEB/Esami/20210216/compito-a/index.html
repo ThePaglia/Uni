@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        <fieldset>
+            <legend>Anagrafica</legend>
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" autocomplete="off" required>
+            <label for="cognome">Cognome</label>
+            <input type="text" id="cognome" name="cognome" autocomplete="off" required>
+            <label for="data">Data di nascita</label>
+            <input type="date" id="data" name="data" autocomplete="off" required>
+        </fieldset>
+        <fieldset>
+            <legend>Prenotazione</legend>
+            <p>Tipo di prestazione</p>
+            <input type="checkbox" id="tampone" name="prestazione">
+            <label for="tampone">Tampone</label>
+            <input type="checkbox" id="sierologico" name="prestazione">
+            <label for="sierologico">Sierologico</label>
+            <input type="checkbox" id="vaccino" name="prestazione">
+            <label for="vaccino">Vaccino</label>
+            <p>Luogo</p>
+            <input type="radio" id="farmacia" name="luogo">
+            <label for="farmacia">Farmacia</label>
+            <input type="radio" id="medicofamiglia" name="luogo">
+            <label for="medicofamiglia">Medico di famiglia</label>
+            <input type="radio" id="ambulatorio" name="luogo">
+            <label for="ambulatorio">Ambulatorio</label>
+            <input type="radio" id="ospedale" name="luogo">
+            <label for="ospedale">Ospedale</label>
+        </fieldset>
+        <input type="submit" value="Submit">
+        <label for="reset">Reset</label>
+        <input type="reset" id="reset" value="Cancella">
+    </form>
+</body>
+
+</html>

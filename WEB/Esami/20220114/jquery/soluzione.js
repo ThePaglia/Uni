@@ -27,11 +27,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     button.addEventListener("click", function () {
-        if (copyTable.rows.length > 0) {
-            for (let i = copyTable.rows.length - 1; i >= 0; i--) {
-                copyTable.deleteRow(i);
+        
+        /*  Funziona uguale ma peggio
+            if (copyTable.rows.length > 0) {
+                for (let i = copyTable.rows.length - 1; i >= 0; i--) {
+                    copyTable.deleteRow(i);
+                }
             }
+        */
+
+        while (copyTable.hasChildNodes()) {
+            copyTable.removeChild(copyTable.firstChild);
         }
+
         for (let i = 0; i < 6; i++) {
             let row = document.createElement("tr");
             for (let j = 0; j < 7; j++) {

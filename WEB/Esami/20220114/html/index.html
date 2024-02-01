@@ -18,34 +18,34 @@
     <table>
         <caption>Appelli d'esame</caption>
         <tr>
-            <th>Giorni</th>
-            <th>Aula</th>
-            <th>9:00 - 10:00</th>
-            <th>10:00 - 11:00</th>
-            <th>11:00 - 12:00</th>
+            <th id="giorni" scope="col">Giorni</th>
+            <th id="aula" scope="col">Aula</th>
+            <th id="9-10" scope="col">9:00 - 10:00</th>
+            <th id="10-11" scope="col">10:00 - 11:00</th>
+            <th id="11-12" scope="col">11:00 - 12:00</th>
         </tr>
         <tr>
-            <th rowspan="2">Lunedi</th>
-            <th>Aula 2.9</th>
-            <td colspan="2">Sistemi Operativi</td>
-            <td>Informatica e diritto</td>
+            <th rowspan="2" scope="row" id="lun">Lunedi</th>
+            <th scope="row" id="2.9">Aula 2.9</th>
+            <td colspan="2" headers="lun 2.9 9-10 10-11">Sistemi Operativi</td>
+            <td headers="lun 2.9 11-12">Informatica e diritto</td>
         </tr>
         <tr>
-            <th>Laboratorio 3.1</th>
-            <td>Reti di comunicazioni</td>
-            <td colspan="2">Basi di dati</td>
+            <th scope="row" id="3.1">Laboratorio 3.1</th>
+            <td headers="lun 3.1 9-10">Reti di comunicazioni</td>
+            <td colspan="2" headers="lun 3.1 10-11 11-12">Basi di dati</td>
         </tr>
         <tr>
-            <th rowspan="2">Martedi</th>
-            <th>Aula 2.5</th>
-            <td>Programmazione</td>
-            <td>Analisi matematica</td>
-            <td>Algoritmi e strutture dati</td>
+            <th rowspan="2" scope="row" id="mar">Martedi</th>
+            <th scope="row" id="2.5">Aula 2.5</th>
+            <td headers="mar 2.5 9-10">Programmazione</td>
+            <td headers="mar 2.5 10-11">Analisi matematica</td>
+            <td headers="mar 2.5 11-12">Algoritmi e strutture dati</td>
         </tr>
         <tr>
-            <th>Laboratorio 3.3</th>
-            <td colspan="2">Tecnologie web</td>
-            <td>Programmazione ad oggetti</td>
+            <th scope="row" id="3.3">Laboratorio 3.3</th>
+            <td colspan="2" headers="mar 3.3 9-10 10-11">Tecnologie web</td>
+            <td headers="mar 3.3 11-12">Programmazione ad oggetti</td>
         </tr>
     </table>
 </body>

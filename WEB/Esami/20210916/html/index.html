@@ -16,27 +16,27 @@
     <table>
         <caption>Bilancio di Genere: personale al 2020</caption>
         <tr>
-            <th>inquadramento</th>
-            <th>personale</th>
-            <th>unità di personale</th>
+            <th scope="col" id="inqu">inquadramento</th>
+            <th scope="col" id="pers">personale</th>
+            <th scope="col" id="unit">unità di personale</th>
         </tr>
         <tr>
-            <th rowspan="2">donne</th>
-            <th>docenti </th>
-            <td>1.782</td>
+            <th rowspan="2" scope="row" id="donne">donne</th>
+            <th scope="row" id="docentiD">docenti</th>
+            <td headers="donne docentiD unit">1.782</td>
         </tr>
         <tr>
-            <th>amministrativi</th>
-            <td>1.012</td>
+            <th scope="row" id="adminD">amministrativi</th>
+            <td headers="donne adminD">1.012</td>
         </tr>
         <tr>
-            <th rowspan="2">uomini</th>
-            <th>docenti </th>
-            <td>1.497</td>
+            <th rowspan="2" scope="row" id="uomini">uomini</th>
+            <th scope="row" id="docentiM">docenti</th>
+            <td headers="uomini docentiM">1.497</td>
         </tr>
         <tr>
-            <th>amministrativi</th>
-            <td>1.246</td>
+            <th scope="row" id="adminM">amministrativi</th>
+            <td headers="uomini adminM">1.246</td>
         </tr>
     </table>
 </body>

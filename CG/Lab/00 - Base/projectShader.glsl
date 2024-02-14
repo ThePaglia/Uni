@@ -1,29 +1,31 @@
-void mainImage(out vec4 fragColor,in vec2 fragCoord)
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
-    // Coordinata normalizzata del pixel rispetto all'altezza della finestra
-    vec2 uv=fragCoord/iResolution.xy;
-    
-    // Colore iniziale (blu)
-    vec3 startColor=vec3(0.,.3,1.);
-    
-    // Colore finale (nero)
-    vec3 endColor=vec3(0.,0.,0.);
-    
-    // Calcola il colore interpolato usando la coordinata del gradiente
-    vec3 finalColor=mix(startColor,endColor,uv.y);
-    
+    // Normalized pixel coordinate with respect to window height
+    vec2 uv = fragCoord / iResolution.xy;
+
+    // Initial color (blue)
+    vec3 startColor = vec3(0., 0.3, 1.);
+
+    // Final color (black)
+    vec3 endColor = vec3(0., 0., 0.);
+
+    // Calculate interpolated color using the gradient coordinate
+    vec3 finalColor = mix(startColor, endColor, uv.y);
+
     // Pseudorandom pattern for stars
-    float stars=fract(sin(dot(uv,vec2(12.9898,78.233)))*43758.5453);
-    
+    float stars = fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453);
+
     // Adjust the threshold to control the density of stars
-    float threshold=.996;
+    float threshold = 0.996;
+
+    // Add a twinkling effect using a smoothstep function
+    stars += smoothstep(0.0, 2.0, sin(iTime * 1.0)) * 0.013;
     
-    // Add stars to the sky
-    if(stars>threshold){
-        
-        finalColor=vec3(uv.y*2.);
+    // Add stars to the sky and make them fall
+    if (stars > threshold) {
+        finalColor = vec3(uv.y);
     }
-    
-    // Imposta il colore del pixel
-    fragColor=vec4(finalColor,1.);
+
+    // Set the pixel color
+    fragColor = vec4(finalColor, 1.0);
 }
